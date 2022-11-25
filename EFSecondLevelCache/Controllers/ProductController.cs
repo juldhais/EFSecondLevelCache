@@ -16,12 +16,13 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult Get(string keyword = "")
+    public async Task<IActionResult> Get(CancellationToken cancellationToken)
     {
-        var response = _context.Products
-            .Where(x => x.Code.Contains(keyword) || x.Description.Contains(keyword))
-            .FromCache();
-
+        var response = await _context.Products
+            .Where(x => x.Category == "Shirt")
+            .OrderBy(x => x.Code)
+            .FromCacheAsync(cancellationToken);
+        
         return Ok(response);
     }
 }

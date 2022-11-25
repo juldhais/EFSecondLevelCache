@@ -14,7 +14,7 @@ var app = builder.Build();
 
 var dataContext = app.Services.CreateScope().ServiceProvider.GetRequiredService<DataContext>();
 dataContext.Database.EnsureCreated();
-dataContext.GenerateDummyProducts();
+dataContext.Generate();
 
 app.UseSwagger();
 app.UseSwaggerUI();
